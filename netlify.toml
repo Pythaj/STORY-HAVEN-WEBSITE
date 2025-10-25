@@ -1,0 +1,68 @@
+[build]
+  publish = ".next"
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer"
+
+# Function settings for API routes
+[functions]
+  directory = ".next/serverless"
+  node_bundler = "esbuild"
+
+# Build optimization
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+# Template tags for environment variables
+[template.environment]
+  NEXT_PUBLIC_SUPABASE_URL = "Your Supabase URL"
+  NEXT_PUBLIC_SUPABASE_ANON_KEY = "Your Supabase Anonymous Key"
+  SUPABASE_SERVICE_ROLE_KEY = "Your Supabase Service Role Key"
+  NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME = "Your Cloudinary Cloud Name"
+  CLOUDINARY_API_KEY = "Your Cloudinary API Key"
+  CLOUDINARY_API_SECRET = "Your Cloudinary API Secret"
+  NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY = "Your Paystack Public Key"
+  PAYSTACK_SECRET_KEY = "Your Paystack Secret Key"
+  NEXT_PUBLIC_ADMIN_USER = "Your Admin Username"
+  NEXT_PUBLIC_ADMIN_HASH = "Your Admin Password Hash"
+  NEXT_PUBLIC_SALT = "Your Salt for Password Hashing"
+  ADMIN_SECRET_KEY = "Your Admin Secret Key"
+  NEXT_PUBLIC_SITE_URL = "Your Site URL"

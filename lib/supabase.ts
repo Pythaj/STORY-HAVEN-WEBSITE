@@ -1,9 +1,23 @@
 import { createClient } from '@supabase/supabase-js'
+import { getSupabaseConfig } from './env-validation'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+let supabaseConfig: any = null
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+try {
+  supabaseConfig = getSupabaseConfig()
+} catch (error) {
+  console.error('Failed to load Supabase configuration:', error)
+  // Fallback for build time - will be replaced with real values at runtime
+  supabaseConfig = {
+    url: process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co',
+    anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-anon-key'
+  }
+}
+
+export const supabase = createClient(
+  supabaseConfig.url,
+  supabaseConfig.anonKey
+)
 
 // Database Types
 export interface Story {

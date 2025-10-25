@@ -35,6 +35,9 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/Logo.jpg" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/Logo.jpg" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/Logo.jpg" />
+        <link rel="apple-touch-icon" href="/Logo.jpg" />
       </head>
       <body className="antialiased">
         <SiteProvider>

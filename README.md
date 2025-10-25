@@ -217,57 +217,47 @@ STORY HAVEN WEBSITE/
 
 ## 🚀 Deployment
 
-### 🆓 Deploy for FREE (Recommended)
+### 🆓 Deploy to Vercel (FREE - Recommended)
 
-**Complete Guide:** See `DEPLOYMENT_GUIDE.md` for detailed instructions
+**✅ Complete Setup:** Follow `Vercel-Deployment-Guide.md` for detailed instructions
 
-**Quick Deploy to Vercel:**
+**✅ Quick Deploy:**
 ```bash
-# Install Vercel CLI
+# Install Vercel CLI (optional)
 npm i -g vercel
 
-# Deploy
+# Deploy to Vercel
 vercel --prod
 ```
 
-**Important:** Add all environment variables in Vercel dashboard after deployment!
+**✅ Environment Variables:** See `.env.vercel.example` for required variables
 
-### What Gets Deployed Where
+**✅ What You Get FREE:**
+- Next.js hosting with global CDN
+- Automatic HTTPS and SSL
+- 100GB bandwidth per month
+- 1000 serverless function executions
+- Image optimization
+- Edge caching
 
-- **Supabase (FREE)**: Database with text data only
-  - Story metadata, prices, descriptions
-  - User data and purchase records
-  - NO media files (stays under 500MB limit)
-
-- **Cloudinary (FREE)**: All media files
-  - Book covers, PDFs
-  - Audio files, videos
-  - Thumbnails and images
-
+**✅ Services Used:**
+- **Supabase (FREE)**: Database (500MB storage)
+- **Cloudinary (FREE)**: Media hosting (25GB storage, 25GB bandwidth)
 - **Vercel (FREE)**: Website hosting
-  - Next.js application
-  - API routes
-  - Automatic HTTPS and CDN
 
-### Environment Variables Required
-```env
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_key
+### 🔧 Configuration Files Created
 
-# Cloudinary
-NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
+- ✅ `vercel.json` - Optimized Vercel deployment configuration
+- ✅ `Vercel-Deployment-Guide.md` - Step-by-step deployment guide
+- ✅ `.env.vercel.example` - Environment variables template
+- ✅ Updated build scripts for Vercel compatibility
 
-# Admin
-NEXT_PUBLIC_ADMIN_USER=admin
-NEXT_PUBLIC_ADMIN_HASH=your_password
+### Important Notes
 
-# Payment (optional - add when ready)
-NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY=your_paystack_key
-PAYSTACK_SECRET_KEY=your_paystack_secret
-```
+1. **Environment Variables**: Must be added in Vercel dashboard after deployment
+2. **Build Time**: First deployment may take 2-3 minutes
+3. **Domain**: Your site will be available at `your-app-name.vercel.app`
+4. **Custom Domain**: Can be added later in Vercel settings
 
 ## 📊 Analytics Integration
 
