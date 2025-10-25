@@ -1,0 +1,122 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci --legacy-peer-deps
+
+    - name: Check dependencies
+      run: npm run check-deps
+
+    - name: Run linter
+      run: npm run lint
+
+    - name: TypeScript check
+      run: npx tsc --noEmit
+
+    - name: Build project
+      run: npm run build
+
+    - name: Health check
+      run: npm run health-check
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-files
+        path: .next/
+        retention-days: 7
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci --legacy-peer-deps
+
+    - name: Build for production
+      run: npm run build
+
+    # Check if required secrets are available before attempting deployment
+    # This prevents workflow failures when secrets haven't been configured yet
+    - name: Check if Vercel secrets are configured
+      id: vercel-check
+      run: |
+        if [ -n "${{ secrets.VERCEL_TOKEN }}" ] && [ "${{ secrets.VERCEL_TOKEN }}" != "" ] && [ -n "${{ secrets.VERCEL_PROJECT_ID }}" ] && [ "${{ secrets.VERCEL_PROJECT_ID }}" != "" ]; then
+          echo "vercel-configured=true" >> $GITHUB_OUTPUT
+          echo "✅ Vercel secrets found - deployment will proceed"
+        else
+          echo "vercel-configured=false" >> $GITHUB_OUTPUT
+          echo "⚠️ Vercel secrets not configured - deployment will be skipped"
+        fi
+
+    # Only deploy if secrets are properly configured
+    # This prevents the "invalid context access" warnings from causing failures
+    - name: Deploy to Vercel
+      if: steps.vercel-check.outputs.vercel-configured == 'true'
+      uses: amondnet/vercel-action@v25
+      with:
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+        vercel-args: '--prod'
+        working-directory: ./
+      env:
+        NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+        SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: ${{ secrets.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME }}
+        CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+        CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+
+    - name: Skip deployment (no Vercel secrets)
+      if: steps.vercel-check.outputs.vercel-configured == 'false'
+      run: |
+        echo "🚫 Skipping deployment - Vercel secrets not configured"
+        echo ""
+        echo "📋 To enable deployment:"
+        echo "   1. Go to your GitHub repository Settings > Secrets and variables > Actions"
+        echo "   2. Add the following secrets:"
+        echo "      - VERCEL_TOKEN"
+        echo "      - VERCEL_PROJECT_ID"
+        echo "      - VERCEL_ORG_ID (optional)"
+        echo "      - NEXT_PUBLIC_SUPABASE_URL"
+        echo "      - NEXT_PUBLIC_SUPABASE_ANON_KEY"
+        echo "      - SUPABASE_SERVICE_ROLE_KEY"
+        echo "      - NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME"
+        echo "      - CLOUDINARY_API_KEY"
+        echo "      - CLOUDINARY_API_SECRET"
+        echo ""
+        echo "   3. Push to main branch to trigger deployment"
+        echo ""
+        echo "✅ Build completed successfully and is ready for deployment!"

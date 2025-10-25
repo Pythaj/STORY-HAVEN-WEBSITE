@@ -1,0 +1,22 @@
+# Story Haven - Robots.txt
+# This file tells search engines what they can and cannot crawl
+
+# Allow all robots to access the main site
+User-agent: *
+Allow: /
+Allow: /stories
+Allow: /audio
+Allow: /animations
+Allow: /shop
+
+# BLOCK admin panel from ALL search engines and crawlers
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /api/admin/*
+
+# Block sensitive files
+Disallow: /*.json$
+Disallow: /api/*
+
+# Sitemap location (create this later for SEO)
+Sitemap: https://storyhaven.art/sitemap.xml

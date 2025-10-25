@@ -1,0 +1,47 @@
+{
+  "name": "story-haven",
+  "version": "1.0.0",
+  "description": "Story Haven - Premium Storytelling Platform by Dray Harmony",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "postinstall": "node scripts/check-dependencies.js",
+    "check-deps": "node scripts/check-dependencies.js",
+    "update-deps": "npm update && npm audit fix --legacy-peer-deps",
+    "clean-install": "rmdir /s /q node_modules && del package-lock.json && npm install --legacy-peer-deps",
+    "auto-fix": "node scripts/auto-fix.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.76.0",
+    "@types/bcryptjs": "^2.4.6",
+    "axios": "^1.6.2",
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.8.0",
+    "encoding": "^0.1.13",
+    "framer-motion": "^10.16.16",
+    "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.294.0",
+    "next": "^15.5.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-h5-audio-player": "^3.9.1",
+    "react-icons": "^4.12.0",
+    "react-pdf": "^7.5.1",
+    "swiper": "^11.0.5",
+    "whatwg-url": "^15.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "^14.0.4",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.3.3"
+  }
+}
