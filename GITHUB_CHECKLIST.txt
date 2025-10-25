@@ -1,0 +1,60 @@
+# ✅ **GITHUB UPLOAD CHECKLIST**
+
+## 📋 **FOLLOW ALONG AS YOU GO**
+
+---
+
+## 🎯 **STEP 1: CREATE GITHUB REPOSITORY** ⏳
+- [ ] Go to https://github.com/new
+- [ ] Repository name: `story-haven-website`
+- [ ] ✅ Check "Public"
+- [ ] Click "Create repository"
+- [ ] Copy the repository URL
+
+---
+
+## 🎯 **STEP 2: OPEN COMMAND PROMPT** ⏳
+- [ ] Press Windows key + R
+- [ ] Type: `cmd`
+- [ ] Click OK
+- [ ] Type: `cd "C:\Users\namuk\Desktop\STORY HAVEN WEBSITE"`
+- [ ] Press Enter
+- [ ] Type: `dir` (see your files)
+
+---
+
+## 🎯 **STEP 3: RUN COMMANDS** ⏳
+- [ ] Type: `git init`
+- [ ] Type: `git add .`
+- [ ] Type: `git commit -m "Complete Story Haven website"`
+- [ ] Type: `git remote add origin https://github.com/YOUR_USERNAME/story-haven-website.git`
+- [ ] Type: `git branch -M main`
+- [ ] Type: `git push -u origin main`
+
+---
+
+## 🎯 **STEP 4: CHECK GITHUB** ⏳
+- [ ] Go to your GitHub repository
+- [ ] See all your files listed
+- [ ] Check commit message
+
+---
+
+## 🎯 **STEP 5: ADD SECRETS** ⏳
+- [ ] Repository → Settings → Secrets and variables → Actions
+- [ ] Add `VERCEL_TOKEN` = [your token]
+- [ ] Add `VERCEL_PROJECT_ID` = [your project ID]
+
+---
+
+## 🎯 **STEP 6: FINAL PUSH** ⏳
+- [ ] Type: `git add .`
+- [ ] Type: `git commit -m "Deploy to Vercel"`
+- [ ] Type: `git push origin main`
+- [ ] Site goes live! 🎉
+
+---
+
+**Mark each box [✅] as you complete it!**
+
+**Tell me when you're ready for the next step!** 🚀

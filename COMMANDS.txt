@@ -1,0 +1,48 @@
+# 🚀 COPY-PASTE COMMANDS
+
+## 📋 COPY THESE ONE BY ONE
+
+---
+
+### **COMMAND 1:**
+```
+git init
+```
+
+### **COMMAND 2:**
+```
+git add .
+```
+
+### **COMMAND 3:**
+```
+git commit -m "Complete Story Haven website"
+```
+
+### **COMMAND 4: (replace YOUR_USERNAME)**
+```
+git remote add origin https://github.com/YOUR_USERNAME/story-haven-website.git
+```
+
+### **COMMAND 5:**
+```
+git branch -M main
+```
+
+### **COMMAND 6:**
+```
+git push -u origin main
+```
+
+### **FINAL COMMAND:**
+```
+git add .
+git commit -m "Deploy to Vercel"
+git push origin main
+```
+
+---
+
+**Copy each command and paste into Command Prompt!** 📋
+
+**Replace YOUR_USERNAME with your actual GitHub username!**
