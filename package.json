@@ -7,7 +7,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "vercel-build": "echo 'Vercel build starting...' && npm run build",
     "check-deps": "node scripts/check-dependencies.js",
     "update-deps": "npm update && npm audit fix --legacy-peer-deps",
     "update-deps-safe": "node scripts/safe-update.js",
